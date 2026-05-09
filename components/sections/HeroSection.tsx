@@ -74,7 +74,7 @@ max-w-[95vw]
   animate="visible"
 >
   <span className="block text-white">
-    ARQUITETANDO
+    ALÉM
   </span>
 
   <span
@@ -87,7 +87,7 @@ max-w-[95vw]
       backgroundClip: "text",
     }}
   >
-    O INFINITO.
+    DO CÓDIGO.
   </span>
 </motion.h1>
 
