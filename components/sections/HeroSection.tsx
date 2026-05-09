@@ -57,17 +57,18 @@ export function HeroSection() {
 
         {/* Headline */}
         <motion.h1
-  className="
-    font-display
-    font-extrabold
-    leading-[0.9]
-    tracking-[-0.04em]
-    mb-8
-    text-[3.2rem]
-    sm:text-[4.5rem]
-    md:text-[6rem]
-    lg:text-[8.5rem]
-  "
+className="
+font-display
+font-extrabold
+leading-[0.9]
+tracking-[-0.04em]
+mb-8
+text-[2.8rem]
+sm:text-[4.5rem]
+md:text-[6rem]
+lg:text-[8.5rem]
+max-w-[95vw]
+"
   variants={fadeUpVariant(0.4)}
   initial="hidden"
   animate="visible"
