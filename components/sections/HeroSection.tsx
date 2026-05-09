@@ -57,26 +57,38 @@ export function HeroSection() {
 
         {/* Headline */}
         <motion.h1
-          className="font-display font-extrabold leading-[0.93] tracking-[-0.04em] mb-8"
-          style={{ fontSize: "clamp(3.5rem, 9.5vw, 8.5rem)" }}
-          variants={fadeUpVariant(0.4)}
-          initial="hidden"
-          animate="visible"
-        >
-          <span className="block text-white">ARQUITETANDO</span>
-          <span
-            className="block"
-            style={{
-              background:
-                "linear-gradient(135deg, #60A5FA 0%, #8B5CF6 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            O INFINITO.
-          </span>
-        </motion.h1>
+  className="
+    font-display
+    font-extrabold
+    leading-[0.9]
+    tracking-[-0.04em]
+    mb-8
+    text-[3.2rem]
+    sm:text-[4.5rem]
+    md:text-[6rem]
+    lg:text-[8.5rem]
+  "
+  variants={fadeUpVariant(0.4)}
+  initial="hidden"
+  animate="visible"
+>
+  <span className="block text-white">
+    ARQUITETANDO
+  </span>
+
+  <span
+    className="block"
+    style={{
+      background:
+        "linear-gradient(135deg, #60A5FA 0%, #8B5CF6 100%)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      backgroundClip: "text",
+    }}
+  >
+    O INFINITO.
+  </span>
+</motion.h1>
 
         {/* Subheadline */}
         <motion.p
