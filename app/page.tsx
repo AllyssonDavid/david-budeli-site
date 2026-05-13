@@ -1,7 +1,7 @@
 "use client";
 
 import { Navbar } from "@/components/ui/Navbar";
-import { HeroSection } from "@/components/sections/HeroSection";
+import HeroSection from "@/components/sections/hero/HeroSection";
 import { SobreSection } from "@/components/sections/SobreSection";
 import { EcossistemaSection } from "@/components/sections/EcossistemaSection";
 import { MatrizSection } from "@/components/sections/MatrizSection";

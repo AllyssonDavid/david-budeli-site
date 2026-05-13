@@ -39,9 +39,9 @@ export function MatrizSection() {
             className="font-display font-extrabold leading-[1.05] tracking-[-0.03em] mb-16"
             style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}
           >
-            Matriz
+            Área 
             <br />
-            <span className="gradient-text">Operacional</span>
+            <span className="gradient-text">de atuação</span>
           </h2>
         </RevealBlock>
 

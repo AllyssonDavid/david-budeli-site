@@ -73,11 +73,11 @@ export function ContatoSection() {
               lg:text-[5.5rem]
             "
           >
-            Vamos construir
+            Vamos criar
             <br />
             algo{" "}
             <span className="gradient-text">
-              extraordinário.
+              grande
             </span>
           </h2>
         </RevealBlock>
