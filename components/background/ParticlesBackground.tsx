@@ -14,6 +14,8 @@ interface Particle {
 
 const PARTICLE_COUNT = 90;
 const CONNECTION_DISTANCE = 120;
+const MOBILE_PARTICLE_COUNT = 26;
+const MOBILE_CONNECTION_DISTANCE = 86;
 
 export function ParticlesBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -28,10 +30,29 @@ export function ParticlesBackground() {
 
     let W = 0;
     let H = 0;
+    let particleCount = PARTICLE_COUNT;
+    let connectionDistance = CONNECTION_DISTANCE;
 
     const resize = () => {
-      W = canvas.width = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+      const viewportWidth = Math.round(
+        window.visualViewport?.width ||
+          document.documentElement.clientWidth ||
+          window.innerWidth
+      );
+      const isMobile = viewportWidth < 768;
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.35 : 1.75);
+      W = viewportWidth;
+      H = window.innerHeight;
+      particleCount = isMobile ? MOBILE_PARTICLE_COUNT : PARTICLE_COUNT;
+      connectionDistance = isMobile
+        ? MOBILE_CONNECTION_DISTANCE
+        : CONNECTION_DISTANCE;
+      canvas.width = Math.floor(W * dpr);
+      canvas.height = Math.floor(H * dpr);
+      canvas.style.width = `${W}px`;
+      canvas.style.height = `${H}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (particlesRef.current.length) init();
     };
 
     const createParticle = (): Particle => ({
@@ -46,7 +67,7 @@ export function ParticlesBackground() {
 
     const init = () => {
       particlesRef.current = Array.from(
-        { length: PARTICLE_COUNT },
+        { length: particleCount },
         createParticle
       );
     };
@@ -79,8 +100,8 @@ export function ParticlesBackground() {
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < CONNECTION_DISTANCE) {
-            const alpha = 0.06 * (1 - dist / CONNECTION_DISTANCE);
+          if (dist < connectionDistance) {
+            const alpha = 0.06 * (1 - dist / connectionDistance);
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -99,8 +120,12 @@ export function ParticlesBackground() {
     draw();
 
     window.addEventListener("resize", resize);
+    window.visualViewport?.addEventListener("resize", resize, {
+      passive: true,
+    });
     return () => {
       window.removeEventListener("resize", resize);
+      window.visualViewport?.removeEventListener("resize", resize);
       cancelAnimationFrame(animFrameRef.current);
     };
   }, []);

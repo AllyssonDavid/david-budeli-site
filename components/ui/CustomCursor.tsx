@@ -19,6 +19,7 @@ export function CustomCursor() {
     let mouseY = 0;
     let ringX = 0;
     let ringY = 0;
+    let raf = 0;
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
@@ -38,7 +39,7 @@ export function CustomCursor() {
       ringX = lerp(ringX, mouseX, 0.1);
       ringY = lerp(ringY, mouseY, 0.1);
       gsap.set(ring, { x: ringX, y: ringY });
-      requestAnimationFrame(animateRing);
+      raf = requestAnimationFrame(animateRing);
     };
     animateRing();
 
@@ -64,6 +65,7 @@ export function CustomCursor() {
     });
 
     return () => {
+      cancelAnimationFrame(raf);
       document.removeEventListener("mousemove", onMouseMove);
       interactiveEls.forEach((el) => {
         el.removeEventListener("mouseenter", onMouseEnterInteractive);

@@ -2,14 +2,15 @@
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import { premiumEase } from "@/components/experience/motionPresets";
 
 export function HeroTag({ children }: { children: ReactNode }) {
   return (
     <motion.div
-      className="inline-flex items-center gap-3 mb-8"
+      className="mb-6 inline-flex items-center gap-3 sm:mb-8"
       initial={{ opacity: 0, x: -16 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 0.6, duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+      transition={{ delay: 0.6, duration: 0.7, ease: premiumEase }}
     >
       {/* Pulsing dot */}
       <span className="relative flex h-[6px] w-[6px] flex-shrink-0">

@@ -1,14 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { premiumEase } from "@/components/experience/motionPresets";
 
 export function HeroScrollIndicator() {
   return (
     <motion.div
-      className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-20"
+      className="absolute bottom-10 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-3 sm:flex"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 2.6, duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+      transition={{ delay: 2.6, duration: 0.8, ease: premiumEase }}
       aria-hidden="true"
     >
       {/* Animated line */}

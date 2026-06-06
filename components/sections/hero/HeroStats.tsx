@@ -1,11 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { premiumEase } from "@/components/experience/motionPresets";
 
 const STATS = [
-  { num: "50+", label: "Projetos Entregues" },
-  { num: "3", label: "Empresas Fundadas" },
-  { num: "∞", label: "Escala" },
+  { num: "50+", label: "Sistemas Projetados" },
+  { num: "3", label: "Produtos em Órbita" },
+  { num: "8+", label: "Anos de Engenharia" },
 ];
 
 export function HeroStats() {
@@ -14,7 +15,7 @@ export function HeroStats() {
       className="hidden xl:flex flex-col gap-7 absolute right-[5vw] top-1/2 -translate-y-1/2 z-20"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: 2.2, duration: 0.9, ease: [0.23, 1, 0.32, 1] }}
+      transition={{ delay: 2.2, duration: 0.9, ease: premiumEase }}
       aria-hidden="true"
     >
       {STATS.map((s, i) => (

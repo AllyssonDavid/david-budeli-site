@@ -19,7 +19,7 @@ export function Logo({ className, onClick }: LogoProps) {
       )}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.97 }}
-      aria-label="David Budeli — Topo"
+      aria-label="David Budeli - Topo"
     >
       {/* Hexagon border */}
       <motion.div

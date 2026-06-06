@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import { RevealBlock } from "@/components/animations/RevealBlock";
+import { ExperienceSection } from "@/components/experience/ExperienceSection";
+import { ExperienceTitle } from "@/components/experience/ExperienceTitle";
 import { Tag } from "@/components/ui/Tag";
 import { MATRIZ_DATA } from "@/lib/constants";
+import { premiumEase, tactileFeedback } from "@/components/experience/motionPresets";
 import {
   Code2,
   Monitor,
@@ -28,53 +31,63 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export function MatrizSection() {
   return (
-    <section id="matriz" className="relative z-10 section-padding bg-bg-1">
+    <ExperienceSection
+      id="matriz"
+      className="section-padding bg-bg-1/90"
+      tone="green"
+    >
       <div className="max-w-[1200px] mx-auto">
         <RevealBlock>
-          <Tag>Especialidades</Tag>
+          <Tag>03 / Sistemas</Tag>
         </RevealBlock>
 
         <RevealBlock delay={0.1}>
-          <h2
-            className="font-display font-extrabold leading-[1.05] tracking-[-0.03em] mb-16"
-            style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}
-          >
-            Área 
+          <ExperienceTitle>
+            IA, segurança
             <br />
-            <span className="gradient-text">de atuação</span>
-          </h2>
+            <span className="gradient-text">e engenharia</span>
+          </ExperienceTitle>
         </RevealBlock>
 
         {/* Grid with single-pixel gaps */}
         <RevealBlock delay={0.2}>
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.04] border border-white/[0.04]"
+            className="grid grid-cols-1 gap-px border border-white/[0.04] bg-white/[0.04] min-[520px]:grid-cols-2 lg:grid-cols-4"
           >
             {MATRIZ_DATA.map((item, i) => (
               <motion.div
                 key={item.id}
-                className="relative bg-bg-1 p-8 overflow-hidden group cursor-default"
+                className="group relative min-h-[190px] cursor-default overflow-hidden bg-bg-1 p-6 sm:p-7 lg:p-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-30px" }}
                 transition={{
                   duration: 0.6,
                   delay: (i % 4) * 0.07,
-                  ease: [0.23, 1, 0.32, 1],
+                  ease: premiumEase,
                 }}
                 whileHover={{ backgroundColor: "rgba(23,26,32,1)" }}
+                whileTap={{
+                  ...tactileFeedback.whileTap,
+                  backgroundColor: "rgba(23,26,32,1)",
+                }}
               >
                 {/* Top accent line */}
                 <motion.div
                   className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent to-violet origin-left"
                   initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{
+                    delay: (i % 4) * 0.05,
+                    duration: 0.55,
+                    ease: premiumEase,
+                  }}
                 />
 
                 {/* Icon */}
                 <motion.div
-                  className="w-10 h-10 border border-accent/20 flex items-center justify-center text-accent-bright mb-5"
+                  className="mb-5 flex h-11 w-11 items-center justify-center border border-accent/20 text-accent-bright sm:h-10 sm:w-10"
                   whileHover={{
                     borderColor: "rgba(59,130,246,0.5)",
                     backgroundColor: "rgba(59,130,246,0.07)",
@@ -85,17 +98,17 @@ export function MatrizSection() {
                 </motion.div>
 
                 {/* ID */}
-                <div className="font-mono-custom text-[0.62rem] text-accent/30 tracking-[0.15em] mb-3">
+                <div className="font-mono-custom mb-3 text-[0.62rem] tracking-[0.15em] text-accent/30">
                   {item.id}
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display font-bold text-[0.98rem] text-ice mb-3 leading-tight">
+                <h3 className="mb-3 font-display text-[1.02rem] font-bold leading-tight text-ice sm:text-[0.98rem]">
                   {item.title}
                 </h3>
 
                 {/* Desc */}
-                <p className="font-body text-[0.78rem] text-muted leading-[1.65]">
+                <p className="font-body text-[0.82rem] leading-[1.62] text-muted sm:text-[0.78rem]">
                   {item.desc}
                 </p>
               </motion.div>
@@ -103,6 +116,6 @@ export function MatrizSection() {
           </div>
         </RevealBlock>
       </div>
-    </section>
+    </ExperienceSection>
   );
 }

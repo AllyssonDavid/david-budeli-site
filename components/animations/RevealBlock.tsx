@@ -2,25 +2,33 @@
 
 import { motion, Variants } from "framer-motion";
 import { ReactNode } from "react";
+import { premiumEase } from "@/components/experience/motionPresets";
 
 interface RevealBlockProps {
   children: ReactNode;
   delay?: number;
   duration?: number;
   direction?: "up" | "down" | "left" | "right" | "none";
+  distance?: number;
   className?: string;
   once?: boolean;
 }
 
 const getVariants = (direction: RevealBlockProps["direction"], distance = 40): Variants => {
   const getInitial = () => {
+    const base = {
+      opacity: 0,
+      scale: 0.985,
+      filter: "blur(10px)",
+    };
+
     switch (direction) {
-      case "up": return { opacity: 0, y: distance };
-      case "down": return { opacity: 0, y: -distance };
-      case "left": return { opacity: 0, x: distance };
-      case "right": return { opacity: 0, x: -distance };
-      case "none": return { opacity: 0 };
-      default: return { opacity: 0, y: distance };
+      case "up": return { ...base, y: distance };
+      case "down": return { ...base, y: -distance };
+      case "left": return { ...base, x: distance };
+      case "right": return { ...base, x: -distance };
+      case "none": return base;
+      default: return { ...base, y: distance };
     }
   };
 
@@ -30,9 +38,11 @@ const getVariants = (direction: RevealBlockProps["direction"], distance = 40): V
       opacity: 1,
       x: 0,
       y: 0,
+      scale: 1,
+      filter: "blur(0px)",
       transition: {
         duration: 0.8,
-        ease: [0.23, 1, 0.32, 1],
+        ease: premiumEase,
       },
     },
   };
@@ -43,10 +53,11 @@ export function RevealBlock({
   delay = 0,
   duration = 0.8,
   direction = "up",
+  distance = 40,
   className = "",
   once = true,
 }: RevealBlockProps) {
-  const variants = getVariants(direction);
+  const variants = getVariants(direction, distance);
 
   return (
     <motion.div
@@ -61,7 +72,7 @@ export function RevealBlock({
           transition: {
             duration,
             delay,
-            ease: [0.23, 1, 0.32, 1],
+            ease: premiumEase,
           },
         },
       }}
@@ -97,7 +108,7 @@ export function RevealStagger({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: [0.23, 1, 0.32, 1] },
+      transition: { duration: 0.7, ease: premiumEase },
     },
   };
 

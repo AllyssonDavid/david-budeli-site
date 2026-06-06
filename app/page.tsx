@@ -1,5 +1,4 @@
-"use client";
-
+import { ExperienceRoot } from "@/components/experience/ExperienceRoot";
 import { Navbar } from "@/components/ui/Navbar";
 import HeroSection from "@/components/sections/hero/HeroSection";
 import { SobreSection } from "@/components/sections/SobreSection";
@@ -9,12 +8,11 @@ import { ArquiteturasSection } from "@/components/sections/ArquiteturasSection";
 import { StackSection } from "@/components/sections/StackSection";
 import { ContatoSection } from "@/components/sections/ContatoSection";
 import { Footer } from "@/components/ui/Footer";
-import { ParticlesBackground } from "@/components/background/ParticlesBackground";
+import { FloatingContactDock } from "@/components/ui/FloatingContactDock";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen">
-      <ParticlesBackground />
+    <ExperienceRoot>
       <Navbar />
       <HeroSection />
       <SobreSection />
@@ -24,6 +22,7 @@ export default function Home() {
       <StackSection />
       <ContatoSection />
       <Footer />
-    </main>
+      <FloatingContactDock />
+    </ExperienceRoot>
   );
 }

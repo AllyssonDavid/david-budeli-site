@@ -27,7 +27,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "David Budeli — Arquitetando o Infinito",
+  metadataBase: new URL("https://davidbudeli.com"),
+  title: "David Budeli - Arquitetando o Infinito",
   description:
     "Engenheiro de software de elite, fundador de ecossistema tecnológico e estrategista digital. Desenvolvendo ecossistemas digitais ultra-premium.",
   keywords: [
@@ -44,17 +45,21 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "David Budeli" }],
   creator: "David Budeli",
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    title: "David Budeli — Arquitetando o Infinito",
+    url: "https://davidbudeli.com",
+    title: "David Budeli - Arquitetando o Infinito",
     description:
       "Engenheiro de software de elite e fundador de ecossistema tecnológico.",
     siteName: "David Budeli",
   },
   twitter: {
     card: "summary_large_image",
-    title: "David Budeli — Arquitetando o Infinito",
+    title: "David Budeli - Arquitetando o Infinito",
     description:
       "Engenheiro de software de elite e fundador de ecossistema tecnológico.",
   },

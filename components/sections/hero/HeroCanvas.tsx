@@ -22,9 +22,12 @@ interface GridLine {
   pulseSpeed: number;
 }
 
-const PARTICLE_COUNT = 60;
-const GRID_SPACING = 80;
-const CONNECTION_DIST = 130;
+const DESKTOP_PARTICLE_COUNT = 60;
+const MOBILE_PARTICLE_COUNT = 34;
+const DESKTOP_GRID_SPACING = 80;
+const MOBILE_GRID_SPACING = 52;
+const DESKTOP_CONNECTION_DIST = 130;
+const MOBILE_CONNECTION_DIST = 92;
 
 export function HeroCanvas({ className = "" }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -42,27 +45,42 @@ export function HeroCanvas({ className = "" }: { className?: string }) {
     let H = 0;
     let particles: Particle[] = [];
     let gridLines: GridLine[] = [];
+    let gridSpacing = DESKTOP_GRID_SPACING;
+    let connectionDist = DESKTOP_CONNECTION_DIST;
+    let particleCount = DESKTOP_PARTICLE_COUNT;
 
     // --- Setup ---
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio, 2);
-      W = window.innerWidth;
+      const viewportWidth = Math.round(
+        window.visualViewport?.width ||
+          document.documentElement.clientWidth ||
+          window.innerWidth
+      );
+      const isMobile = viewportWidth < 768;
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+      W = viewportWidth;
       H = window.innerHeight;
-      canvas.width = W * dpr;
-      canvas.height = H * dpr;
+      gridSpacing = isMobile ? MOBILE_GRID_SPACING : DESKTOP_GRID_SPACING;
+      connectionDist = isMobile
+        ? MOBILE_CONNECTION_DIST
+        : DESKTOP_CONNECTION_DIST;
+      particleCount = isMobile ? MOBILE_PARTICLE_COUNT : DESKTOP_PARTICLE_COUNT;
+      canvas.width = Math.floor(W * dpr);
+      canvas.height = Math.floor(H * dpr);
       canvas.style.width = `${W}px`;
       canvas.style.height = `${H}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       buildGrid();
+      if (particles.length) initParticles();
     };
 
     const buildGrid = () => {
       gridLines = [];
-      const cols = Math.ceil(W / GRID_SPACING) + 1;
-      const rows = Math.ceil(H / GRID_SPACING) + 1;
+      const cols = Math.ceil(W / gridSpacing) + 1;
+      const rows = Math.ceil(H / gridSpacing) + 1;
       for (let i = 0; i < cols; i++) {
         gridLines.push({
-          x: i * GRID_SPACING,
+          x: i * gridSpacing,
           y: 0,
           isHorizontal: false,
           opacity: 0.015 + Math.random() * 0.02,
@@ -73,7 +91,7 @@ export function HeroCanvas({ className = "" }: { className?: string }) {
       for (let j = 0; j < rows; j++) {
         gridLines.push({
           x: 0,
-          y: j * GRID_SPACING,
+          y: j * gridSpacing,
           isHorizontal: true,
           opacity: 0.015 + Math.random() * 0.02,
           pulseOffset: Math.random() * Math.PI * 2,
@@ -97,7 +115,7 @@ export function HeroCanvas({ className = "" }: { className?: string }) {
     };
 
     const initParticles = () => {
-      particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
+      particles = Array.from({ length: particleCount }, createParticle);
     };
 
     // --- Draw ---
@@ -107,8 +125,8 @@ export function HeroCanvas({ className = "" }: { className?: string }) {
         const alpha = gl.opacity * (0.6 + pulse * 0.4);
 
         // Mouse proximity brightening
-        let mx = gl.isHorizontal ? mouseRef.current.x : gl.x;
-        let my = gl.isHorizontal ? gl.y : mouseRef.current.y;
+        const mx = gl.isHorizontal ? mouseRef.current.x : gl.x;
+        const my = gl.isHorizontal ? gl.y : mouseRef.current.y;
         const dist = Math.sqrt(
           (mx - mouseRef.current.x) ** 2 + (my - mouseRef.current.y) ** 2
         );
@@ -151,7 +169,7 @@ export function HeroCanvas({ className = "" }: { className?: string }) {
         const dx = p.x - mouseRef.current.x;
         const dy = p.y - mouseRef.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
+        if (dist > 0 && dist < 120) {
           const force = (1 - dist / 120) * 0.4;
           p.vx += (dx / dist) * force;
           p.vy += (dy / dist) * force;
@@ -185,8 +203,8 @@ export function HeroCanvas({ className = "" }: { className?: string }) {
           const dx = a.x - b.x;
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONNECTION_DIST) {
-            const alpha = (1 - dist / CONNECTION_DIST) * 0.08;
+          if (dist < connectionDist) {
+            const alpha = (1 - dist / connectionDist) * 0.08;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -251,12 +269,16 @@ export function HeroCanvas({ className = "" }: { className?: string }) {
     rafRef.current = requestAnimationFrame(draw);
 
     window.addEventListener("resize", resize, { passive: true });
+    window.visualViewport?.addEventListener("resize", resize, {
+      passive: true,
+    });
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     document.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", resize);
+      window.visualViewport?.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseleave", onMouseLeave);
     };

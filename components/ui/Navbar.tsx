@@ -17,6 +17,13 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   const scrollTo = (href: string) => {
     setMobileOpen(false);
     const id = href.replace("#", "");
@@ -34,7 +41,7 @@ export function Navbar() {
     <>
       <motion.nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-[100] px-[5vw] h-[72px]",
+          "fixed left-0 top-0 z-[100] h-16 w-[100dvw] max-w-full px-4 sm:px-6 md:h-[72px] md:px-[5vw]",
           "flex items-center justify-between",
           "transition-colors duration-300",
           scrolled ? "border-b border-accent/15" : "border-b border-white/[0.04]"
@@ -88,11 +95,12 @@ export function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-ice p-1 focus:outline-none"
+          className="md:hidden flex h-11 w-11 items-center justify-center border border-white/[0.08] text-ice focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
           onClick={() => setMobileOpen((v) => !v)}
-          aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+          aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
         >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </motion.nav>
 
@@ -100,32 +108,38 @@ export function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed top-[72px] left-0 right-0 z-[99] px-5 py-8 flex flex-col gap-6"
+            className="fixed inset-0 z-[99] flex flex-col px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] pt-24 md:hidden"
             style={{
-              background: "rgba(5,5,5,0.97)",
+              background: "rgba(5,5,5,0.98)",
               backdropFilter: "blur(20px)",
-              borderBottom: "1px solid rgba(255,255,255,0.05)",
             }}
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
           >
-            {NAV_ITEMS.map((item, i) => (
-              <motion.button
-                key={item.href}
-                onClick={() => scrollTo(item.href)}
-                className="text-left font-body text-lg font-medium tracking-wider uppercase text-muted hover:text-ice transition-colors"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.06 }}
-              >
-                {item.label}
-              </motion.button>
-            ))}
+            <div className="absolute inset-0 grid-bg opacity-70 pointer-events-none" />
+            <div className="relative flex flex-1 flex-col justify-center gap-3">
+              {NAV_ITEMS.map((item, i) => (
+                <motion.button
+                  key={item.href}
+                  onClick={() => scrollTo(item.href)}
+                  className="group flex items-center justify-between border-b border-white/[0.06] py-5 text-left font-display text-[1.55rem] font-extrabold leading-none text-ice transition-colors hover:text-accent-bright"
+                  initial={{ opacity: 0, x: -18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.055 }}
+                >
+                  <span>{item.label}</span>
+                  <span className="font-mono-custom text-[0.62rem] text-accent/40">
+                    0{i + 1}
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+
             <motion.button
               onClick={() => scrollTo("#contato")}
-              className="mt-2 px-5 py-3 border border-accent/40 text-accent-bright text-sm font-medium tracking-widest uppercase hover:bg-accent/10 transition-all"
+              className="relative mt-8 h-14 w-full border border-accent/45 bg-accent text-sm font-medium uppercase tracking-[0.12em] text-white transition-all hover:bg-accent-bright"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.35 }}

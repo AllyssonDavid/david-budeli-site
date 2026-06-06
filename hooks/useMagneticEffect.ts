@@ -10,7 +10,8 @@ export function useMagneticEffect(strength = 0.3) {
     const el = ref.current;
     if (!el) return;
 
-    const handleMouseMove = (e: any) => {
+    const handleMouseMove: EventListener = (event) => {
+      const e = event as MouseEvent;
       const rect = el.getBoundingClientRect();
 
       const centerX = rect.left + rect.width / 2;

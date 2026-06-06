@@ -2,11 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    formats: ['image/webp', 'image/avif'],
+    formats: ["image/webp", "image/avif"],
   },
   experimental: {
     optimizeCss: true,
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
