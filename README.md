@@ -1,180 +1,80 @@
-# David Budeli — Website Pessoal Premium
+# David Budeli
 
-Website pessoal cinematográfico e ultra-premium construído com Next.js 15, Framer Motion, GSAP e arquitetura profissional.
+Experiencia digital premium para `davidbudeli.com`, construida com Next.js, TypeScript, Tailwind CSS, Framer Motion e motion system mobile-first.
 
----
+## Stack
 
-## 🚀 Stack
+- Next.js App Router
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- GSAP ScrollTrigger carregado sob demanda no desktop
+- Lenis somente no desktop
 
-- **Next.js 15** — Framework React com App Router
-- **TypeScript** — Tipagem estática
-- **TailwindCSS** — Utility-first CSS
-- **Framer Motion** — Animações declarativas
-- **GSAP + ScrollTrigger** — Animações avançadas e scroll
-- **Lenis** — Smooth scroll premium
-- **Lucide React** — Icons
-
----
-
-## 📁 Estrutura do Projeto
-
-```
-david-budeli/
-├── app/
-│   ├── layout.tsx              # Root layout com fontes e providers
-│   └── page.tsx                # Página principal
-│
-├── components/
-│   ├── animations/
-│   │   ├── RevealBlock.tsx     # Componente de reveal animado
-│   │   └── SmoothScrollProvider.tsx  # Lenis + GSAP ScrollTrigger
-│   │
-│   ├── background/
-│   │   └── ParticlesBackground.tsx   # Canvas com partículas
-│   │
-│   ├── sections/
-│   │   ├── HeroSection.tsx     # Hero cinematográfico
-│   │   ├── SobreSection.tsx    # Sobre David Budeli
-│   │   ├── EcossistemaSection.tsx    # Hyper Galaxy, HyperAG, HyperPag
-│   │   ├── MatrizSection.tsx   # 8 especialidades
-│   │   ├── ArquiteturasSection.tsx   # Projetos como arquiteturas digitais
-│   │   ├── StackSection.tsx    # Stack tecnológica (terminal)
-│   │   └── ContatoSection.tsx  # Contato premium
-│   │
-│   └── ui/
-│       ├── CustomCursor.tsx    # Cursor personalizado premium
-│       ├── Footer.tsx          # Footer minimalista
-│       ├── Logo.tsx            # Logo geométrica "D"
-│       ├── Navbar.tsx          # Navbar fixa glass
-│       └── Tag.tsx             # Tag de seção
-│
-├── hooks/
-│   ├── useMagneticEffect.ts    # Efeito magnético em botões
-│   ├── useMousePosition.ts     # Posição do mouse
-│   └── useReveal.ts            # Intersection observer reveal
-│
-├── lib/
-│   ├── constants.ts            # Dados do site (conteúdo)
-│   └── utils.ts                # Utilitários (cn, lerp, etc.)
-│
-├── styles/
-│   └── globals.css             # Design system, variáveis CSS, animações
-│
-├── next.config.js
-├── tailwind.config.ts
-├── tsconfig.json
-├── postcss.config.js
-└── package.json
-```
-
----
-
-## ⚡ Instalação
-
-### 1. Instalar dependências
-
-```bash
-npm install
-```
-
-### 2. Rodar em desenvolvimento
+## Scripts
 
 ```bash
 npm run dev
-```
-
-Acesse: [http://localhost:3000](http://localhost:3000)
-
-### 3. Build de produção
-
-```bash
+npm run lint
 npm run build
 npm start
 ```
 
----
+Scripts de runtime:
 
-## 🌐 Deploy na Vercel
+```json
+{
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start"
+}
+```
 
-### Opção 1 — CLI (recomendado)
+## Desenvolvimento
 
 ```bash
-npm install -g vercel
-vercel
+npm install
+npm run dev
 ```
 
-### Opção 2 — Dashboard
+Acesse `http://localhost:3000`.
 
-1. Acesse [vercel.com](https://vercel.com)
-2. Clique em **Add New → Project**
-3. Importe o repositório GitHub
-4. Clique em **Deploy**
+## Validacao de producao
 
-> A Vercel detecta automaticamente Next.js e configura tudo.
-
----
-
-## ✏️ Personalização
-
-### Conteúdo
-Edite `lib/constants.ts` para atualizar:
-- Links de contato (WhatsApp, Instagram, Telegram, Email)
-- Projetos na seção Arquiteturas Digitais
-- Dados do ecossistema
-
-### Cores
-Edite `styles/globals.css` nas variáveis `:root`
-
-### Fontes
-Edite `app/layout.tsx` nas importações do Google Fonts
-
----
-
-## 📸 Foto de Perfil
-
-Na seção **Sobre**, substitua o placeholder pelo seu arquivo de foto:
-
-Em `components/sections/SobreSection.tsx`, dentro de `.sobre-inner`, adicione:
-
-```tsx
-import Image from "next/image";
-
-// Substitua o div da avatar por:
-<Image
-  src="/foto-perfil.jpg"
-  alt="David Budeli"
-  fill
-  className="object-cover"
-  priority
-/>
+```bash
+npm install
+npm run lint
+npm run build
+npm start
 ```
 
-Coloque a foto em `/public/foto-perfil.jpg`
+## Deploy na Hostinger
 
----
+O deploy de producao deve ser feito pela Hostinger Node.js Hosting usando a integracao com GitHub.
 
-## 🔧 Variáveis de Ambiente
+Guia completo: [`HOSTINGER_DEPLOY.md`](./HOSTINGER_DEPLOY.md)
 
-Crie `.env.local` se necessário:
+Configuracao esperada:
 
-```env
-# Exemplo para analytics futuros
-NEXT_PUBLIC_GA_ID=
-```
+- Repository: `https://github.com/DavidBudeli/david-budeli-site`
+- Branch: `main`
+- Install command: `npm install`
+- Build command: `npm run build`
+- Start command: `npm start`
+- Domain: `davidbudeli.com`
 
----
+## Variaveis de ambiente
 
-## 📦 Dependências principais
+Nenhuma variavel de ambiente e obrigatoria para a versao atual.
 
-| Pacote | Versão | Uso |
-|--------|--------|-----|
-| next | 15.1.0 | Framework |
-| framer-motion | ^11 | Animações |
-| gsap | ^3.12 | GSAP + ScrollTrigger |
-| lenis | ^1.1 | Smooth scroll |
-| @react-three/fiber | ^8 | Three.js React |
-| lucide-react | ^0.468 | Icons |
+## Conteudo
 
----
+Os dados principais de navegacao, ecossistema, projetos, stack e contatos ficam em `lib/constants.ts`.
 
-**David Budeli © 2025 — Hyper Galaxy Ecosystem**
+Links oficiais configurados:
+
+- GitHub: `https://github.com/DavidBudeli`
+- Instagram: `https://www.instagram.com/davidbudeli/`
+- Website: `https://davidbudeli.com`
+- Email: `mailto:atendimento@davidbudeli.com`
+- WhatsApp: `https://wa.me/5541999360874`
