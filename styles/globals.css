@@ -394,6 +394,74 @@ html.lenis body {
   isolation: isolate;
 }
 
+.v2-responsive-backdrop {
+  --v2-backdrop-dark: #07121d;
+  --v2-backdrop-soft: rgba(125, 211, 252, 0.14);
+  --v2-backdrop-accent: #7dd3fc;
+  --v2-backdrop-accent-two: #a78bfa;
+  background: #030303;
+  contain: paint;
+}
+
+[data-backdrop-base] {
+  background:
+    linear-gradient(118deg, var(--v2-backdrop-dark) 0%, #030303 36%, var(--v2-backdrop-soft) 58%, #030303 100%),
+    linear-gradient(to bottom, #030303, #050505);
+  opacity: 0.96;
+  will-change: background, opacity, transform;
+}
+
+[data-backdrop-light] {
+  background:
+    radial-gradient(ellipse at 26% 46%, color-mix(in srgb, var(--v2-backdrop-accent) 36%, transparent) 0%, transparent 58%),
+    linear-gradient(98deg, transparent 0%, rgba(255, 255, 255, 0.045) 42%, transparent 72%);
+  filter: blur(54px);
+  opacity: 0.42;
+  mix-blend-mode: screen;
+  will-change: transform, opacity, background;
+}
+
+[data-backdrop-field] {
+  background:
+    radial-gradient(ellipse at 68% 52%, color-mix(in srgb, var(--v2-backdrop-accent-two) 24%, transparent) 0%, transparent 62%),
+    linear-gradient(124deg, transparent 0%, var(--v2-backdrop-soft) 48%, transparent 78%);
+  filter: blur(64px);
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  will-change: transform, opacity, background;
+}
+
+[data-backdrop-band] {
+  background:
+    linear-gradient(90deg, transparent 0%, var(--v2-backdrop-soft) 34%, rgba(255,255,255,0.035) 50%, var(--v2-backdrop-soft) 66%, transparent 100%);
+  opacity: 0.36;
+  filter: blur(0.2px);
+  will-change: transform, opacity, background;
+}
+
+[data-backdrop-veil] {
+  background:
+    linear-gradient(110deg, transparent 0%, color-mix(in srgb, var(--v2-backdrop-accent) 12%, transparent) 42%, transparent 72%);
+  filter: blur(24px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  will-change: opacity, transform, background;
+}
+
+[data-backdrop-depth] {
+  background: linear-gradient(to top, var(--v2-backdrop-dark) 0%, rgba(3,3,3,0.88) 34%, transparent 100%);
+  will-change: background, opacity, transform;
+}
+
+[data-backdrop-texture] {
+  background-image:
+    linear-gradient(118deg, rgba(255, 255, 255, 0.022), transparent 38%, rgba(255, 255, 255, 0.014)),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='softNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23softNoise)' opacity='0.16'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  will-change: opacity;
+}
+
 .v2-page,
 .v2-page * {
   letter-spacing: 0 !important;
@@ -421,6 +489,7 @@ html.lenis body {
     linear-gradient(to bottom, rgba(255, 255, 255, 0.026), transparent 34%, rgba(255, 255, 255, 0.014) 72%, transparent);
   mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%);
+  pointer-events: none;
 }
 
 .v2-case-panel {
@@ -434,11 +503,46 @@ html.lenis body {
     linear-gradient(96deg, transparent 0%, var(--case-soft) 44%, transparent 76%);
   background-size: 180% 100%, 100% 100%;
   background-position: var(--hover-x, 50%) var(--hover-y, 50%), center;
+  pointer-events: none;
 }
 
 [data-case-visual] {
   transform-style: preserve-3d;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
+}
+
+[data-backdrop-base],
+[data-backdrop-band],
+[data-backdrop-depth],
+[data-backdrop-light],
+[data-backdrop-field],
+[data-backdrop-veil],
+[data-backdrop-texture],
+[data-hero-band],
+[data-image-mask] {
+  pointer-events: none;
+}
+
+@supports not (color: color-mix(in srgb, #fff 50%, transparent)) {
+  [data-backdrop-light] {
+    background:
+      radial-gradient(ellipse at 26% 46%, rgba(125, 211, 252, 0.22) 0%, transparent 58%),
+      linear-gradient(98deg, transparent 0%, rgba(255, 255, 255, 0.045) 42%, transparent 72%);
+  }
+
+  [data-backdrop-field] {
+    background:
+      radial-gradient(ellipse at 68% 52%, rgba(167, 139, 250, 0.15) 0%, transparent 62%),
+      linear-gradient(124deg, transparent 0%, rgba(125, 211, 252, 0.12) 48%, transparent 78%);
+  }
+
+  [data-backdrop-veil] {
+    background: linear-gradient(110deg, transparent 0%, rgba(125, 211, 252, 0.08) 42%, transparent 72%);
+  }
+}
+
+[data-progressive-image] img {
+  opacity: 1;
 }
 
 [data-v2-loader] {

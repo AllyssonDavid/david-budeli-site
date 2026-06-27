@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "David Budeli - Software Engineer";
+export const alt = "David Budeli - Produtos digitais, IA e automação";
 export const size = {
   width: 1200,
   height: 630,
@@ -61,14 +61,14 @@ export default function OpenGraphImage() {
                   color: "rgba(255,250,241,0.62)",
                 }}
               >
-                SOFTWARE ENGINEER
+                PRODUTO / IA / AUTOMAÇÃO
               </span>
             </div>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span style={{ fontSize: 68, lineHeight: 0.98, maxWidth: 860 }}>
-              Produtos digitais, IA e sistemas que escalam.
+              Produto. IA. Conversão.
             </span>
             <span
               style={{
@@ -78,7 +78,7 @@ export default function OpenGraphImage() {
                 color: "rgba(255,250,241,0.42)",
               }}
             >
-              CYBERSECURITY / AI INFRASTRUCTURE / AUTOMATION
+              SITES / SISTEMAS / AUTOMAÇÕES / PERFORMANCE
             </span>
           </div>
         </div>

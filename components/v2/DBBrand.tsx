@@ -27,7 +27,7 @@ export function DBWordmark({ className, priority }: BrandImageProps) {
   return (
     <Image
       src="/brand/db-wordmark-horizontal.png"
-      alt="David Budeli - Software Engineer"
+      alt="David Budeli - Produto, IA e automação"
       width={296}
       height={71}
       priority={priority}

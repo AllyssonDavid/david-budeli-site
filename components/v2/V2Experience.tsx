@@ -29,7 +29,7 @@ import {
   v2NavItems,
   type V2Case,
 } from "@/lib/v2-data";
-import { DBIconTile, DBMonogram, DBWordmark } from "@/components/v2/DBBrand";
+import { DBIconTile, DBMonogram } from "@/components/v2/DBBrand";
 import { cn } from "@/lib/utils";
 
 type SectionId = "hero" | "positioning" | "cases" | "system" | "contact";
@@ -150,13 +150,10 @@ function V2Navigation({
           <button
             type="button"
             onClick={() => handleNav("#hero")}
-            className="group flex h-10 items-center gap-2 px-2 text-left sm:h-11"
+            className="group flex h-10 w-10 items-center justify-center text-left sm:h-11 sm:w-11"
             aria-label="Voltar para o topo"
           >
-            <DBIconTile className="h-9 w-9 rounded-[10px] transition-colors group-hover:border-[var(--v2-accent)] sm:hidden" />
-            <span className="hidden sm:block">
-              <DBWordmark priority />
-            </span>
+            <DBIconTile className="h-10 w-10 rounded-[10px] transition-colors group-hover:border-[var(--v2-accent)] sm:h-11 sm:w-11" />
           </button>
 
           <div className="hidden items-center gap-1 md:flex">
@@ -260,34 +257,39 @@ function V2Navigation({
   );
 }
 
-function ResponsiveBackdrop({ activeCase }: { activeCase: V2Case }) {
+function ResponsiveBackdrop() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
+    <div
+      data-responsive-backdrop
+      className="v2-responsive-backdrop pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      aria-hidden="true"
+    >
       <div
         data-backdrop-base
-        className="absolute inset-x-[-18%] top-[-16%] h-[128svh] transition-[background,opacity] duration-700"
-        style={{
-          background: `linear-gradient(118deg, ${activeCase.dark} 0%, #030303 35%, ${activeCase.soft} 58%, #030303 100%)`,
-          opacity: 0.96,
-        }}
+        className="absolute inset-x-[-18%] top-[-16%] h-[128svh]"
+      />
+      <div
+        data-backdrop-light
+        data-mouse-layer="0.018"
+        className="absolute left-[-34%] top-[-8%] h-[76svh] w-[138vw] rotate-[-12deg]"
+      />
+      <div
+        data-backdrop-field
+        data-mouse-layer="0.012"
+        className="absolute bottom-[-28%] right-[-32%] h-[82svh] w-[132vw] rotate-[9deg]"
       />
       <div
         data-backdrop-band
         data-mouse-layer="0.035"
-        className="absolute inset-x-[-12%] top-[17%] h-[38svh] rotate-[-5deg] blur-[0.2px] transition-[background,transform] duration-700"
-        style={{
-          background: `linear-gradient(90deg, transparent 0%, ${activeCase.soft} 34%, rgba(255,255,255,0.035) 50%, ${activeCase.soft} 66%, transparent 100%)`,
-          transform: "translate3d(0, calc(var(--v2-page-progress, 0) * -120px), 0) rotate(-5deg)",
-        }}
+        className="absolute inset-x-[-14%] top-[18%] h-[34svh] rotate-[-5deg]"
       />
+      <div data-backdrop-veil className="absolute inset-0 opacity-0" />
       <div
         data-backdrop-depth
-        className="absolute inset-x-0 bottom-0 h-[46svh] transition-colors duration-700"
-        style={{
-          background: `linear-gradient(to top, ${activeCase.dark} 0%, rgba(3,3,3,0.88) 34%, transparent 100%)`,
-        }}
+        className="absolute inset-x-0 bottom-0 h-[46svh]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.58),transparent_24%,transparent_70%,rgba(0,0,0,0.76))]" />
+      <div data-backdrop-texture className="absolute inset-0 opacity-[0.16]" />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(0,0,0,0.56),transparent_24%,transparent_70%,rgba(0,0,0,0.76))]" />
     </div>
   );
 }
@@ -298,7 +300,7 @@ function V2LoadingScreen({ done }: { done: boolean }) {
       data-v2-loader
       className={cn(
         "fixed inset-0 z-[120] grid place-items-center bg-[#030303] transition-[visibility] duration-500",
-        done && "invisible"
+        done ? "invisible pointer-events-none" : "pointer-events-auto"
       )}
       aria-hidden={done}
     >
@@ -322,11 +324,11 @@ function V2LoadingScreen({ done }: { done: boolean }) {
 }
 
 function HeroSection() {
-  const domains = ["Cibersegurança", "IA aplicada", "Automação", "SaaS"];
+  const domains = ["Sites premium", "IA aplicada", "Automação", "Sistemas"];
   const signals = [
-    ["Produto", "Interfaces com intenção e estados reais"],
-    ["IA", "Agentes, integrações e automações operacionais"],
-    ["Segurança", "Arquitetura consciente de risco e escala"],
+    ["Produto", "Sites, sistemas e jornadas com foco em conversão"],
+    ["IA", "Automações e agentes conectados à operação"],
+    ["Escala", "Performance, segurança e base para crescer"],
   ];
 
   return (
@@ -334,9 +336,9 @@ function HeroSection() {
       id="hero"
       data-v2-section="hero"
       data-v2-theme="hyper-galaxy"
-      className="relative z-10 flex min-h-[100svh] items-center overflow-hidden px-4 pb-16 pt-24 sm:px-6 lg:px-[5vw]"
+      className="relative z-10 flex min-h-[100svh] items-center overflow-hidden px-4 pb-[calc(5rem+env(safe-area-inset-bottom))] pt-24 sm:px-6 lg:px-[5vw]"
     >
-      <div data-hero-band className="absolute inset-x-[-8%] top-[26%] h-[26svh] -rotate-3 bg-white/[0.025] blur-xl" />
+      <div data-hero-band className="pointer-events-none absolute inset-x-[-8%] top-[26%] h-[26svh] -rotate-3 bg-white/[0.025] blur-xl" />
       <div className="relative mx-auto grid w-full max-w-[1180px] gap-10 lg:grid-cols-[minmax(0,0.74fr)_minmax(280px,0.26fr)] lg:items-end">
         <div>
           <div
@@ -344,32 +346,30 @@ function HeroSection() {
             className="mb-7 inline-flex items-center gap-2 border border-white/[0.08] bg-white/[0.03] px-3 py-2 font-mono-custom text-[0.62rem] uppercase text-white/58 backdrop-blur"
           >
             <span className="h-1.5 w-1.5 bg-[var(--v2-accent)]" />
-            David Budeli / Software Engineer
+            David Budeli / Produto, IA e Automação
           </div>
 
           <h1
             data-hero-title
-            className="max-w-[980px] font-display text-[2.65rem] font-bold leading-[0.96] text-white min-[390px]:text-[2.85rem] sm:text-[5rem] sm:leading-[0.94] lg:text-[6.35rem]"
+            className="max-w-[760px] font-display text-[3.05rem] font-bold leading-[0.94] text-white min-[390px]:text-[3.35rem] sm:text-[5.25rem] sm:leading-[0.92] lg:text-[6.45rem]"
           >
-            <SplitWords text="Construindo sistemas digitais de alta performance." />
+            <SplitWords text="Produto. IA. Conversão." />
           </h1>
 
           <div className="mt-7 grid gap-6 lg:grid-cols-[0.76fr_0.24fr] lg:items-end">
             <p
               data-hero-copy
-              className="max-w-[690px] text-[1.03rem] font-light leading-[1.72] text-white/62 sm:text-[1.14rem]"
+              className="max-w-[610px] text-[1rem] font-light leading-[1.58] text-white/66 sm:text-[1.14rem] sm:leading-[1.66]"
             >
-              Software Engineer para produtos digitais, infraestrutura de IA, automações e SaaS.
-              Não é sobre vender sites; é sobre projetar sistemas que sustentam operação real,
-              escala e autoridade técnica.
+              Crio sites, sistemas e automações com foco em performance, IA e conversão.
             </p>
 
             <div data-hero-note className="space-y-3 border-l border-white/[0.1] pl-4 lg:max-w-[260px]">
               <p className="font-mono-custom text-[0.62rem] uppercase text-white/35">
-                Cibersegurança / IA / Automação / SaaS
+                Sites / Sistemas / IA / Automação
               </p>
               <p className="text-[0.95rem] leading-[1.65] text-white/50">
-                Tecnologia aparece pela experiência, não por ruído visual.
+                Construção técnica para vender, operar e escalar.
               </p>
             </div>
           </div>
@@ -389,7 +389,7 @@ function HeroSection() {
             <MagneticAnchor
               href="https://wa.me/5541999360874"
               external
-              className="group flex h-14 items-center justify-center gap-2 border border-[var(--v2-accent)] bg-[var(--v2-accent)] px-5 text-sm font-semibold text-black transition-transform"
+              className="group relative z-20 flex h-14 items-center justify-center gap-2 border border-[var(--v2-accent)] bg-[var(--v2-accent)] px-5 text-sm font-semibold text-black transition-transform"
             >
               Iniciar conversa
               <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -397,7 +397,7 @@ function HeroSection() {
             <button
               type="button"
               onClick={() => scrollToTarget("#cases")}
-              className="group flex h-14 items-center justify-center gap-2 border border-white/[0.1] bg-white/[0.035] px-5 text-sm font-medium text-white transition-colors hover:border-white/[0.22] hover:bg-white/[0.06]"
+              className="group relative z-20 flex h-14 items-center justify-center gap-2 border border-white/[0.1] bg-white/[0.035] px-5 text-sm font-medium text-white transition-colors hover:border-white/[0.22] hover:bg-white/[0.06]"
               data-cursor-hover
             >
               Ver cases premium
@@ -418,7 +418,7 @@ function HeroSection() {
                 sizes="(max-width: 1023px) 92vw, 360px"
                 className="object-cover object-[50%_30%]"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.76),transparent_46%,rgba(0,0,0,0.08))]" />
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.66),transparent_50%,rgba(0,0,0,0.06))]" />
               <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-4">
                 <div>
                   <p className="font-mono-custom text-[0.55rem] uppercase text-white/52">
@@ -429,7 +429,7 @@ function HeroSection() {
                   </p>
                 </div>
                 <span className="border border-white/[0.12] bg-black/42 px-2 py-1 font-mono-custom text-[0.52rem] uppercase text-white/62 backdrop-blur">
-                  Software Engineer
+                  Product Engineer
                 </span>
               </div>
             </div>
@@ -449,7 +449,7 @@ function HeroSection() {
               sizes="360px"
               className="object-cover object-[50%_28%]"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.78),transparent_50%,rgba(0,0,0,0.12))]" />
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.66),transparent_52%,rgba(0,0,0,0.08))]" />
             <div className="absolute bottom-3 left-3 right-3">
               <p className="font-mono-custom text-[0.55rem] uppercase text-white/52">
                 Perfil
@@ -495,20 +495,20 @@ function PositioningSection() {
   const frames = [
     {
       label: "01 / Reposicionamento",
-      title: "De páginas soltas para produtos digitais.",
-      body: "O site passa a posicionar David como engenheiro de produto, infraestrutura e automação. A narrativa começa pelo sistema que sustenta a operação.",
+      title: "De página para produto digital.",
+      body: "A presença digital vira uma jornada clara para apresentar valor, gerar confiança e iniciar conversa.",
       icon: Network,
     },
     {
       label: "02 / IA aplicada",
-      title: "Automação como capacidade, não decoração.",
-      body: "Agentes, integrações, prompts, filas e dados entram como camada operacional para reduzir trabalho manual e aumentar consistência.",
+      title: "IA aplicada à operação.",
+      body: "Agentes, integrações e automações reduzem trabalho manual e conectam tecnologia ao dia a dia da empresa.",
       icon: Bot,
     },
     {
-      label: "03 / Experiência",
-      title: "Motion para criar autoridade percebida.",
-      body: "O scroll revela decisões, muda o ambiente e mantém ritmo. A experiência vende engenharia premium antes de qualquer pitch.",
+      label: "03 / Conversão",
+      title: "Experiência que conduz demanda.",
+      body: "Motion, hierarquia e conteúdo trabalham juntos para levar o visitante dos cases ao contato.",
       icon: Sparkles,
     },
   ];
@@ -518,38 +518,37 @@ function PositioningSection() {
       id="positioning"
       data-v2-section="positioning"
       data-v2-theme="hyperpag"
-      className="relative z-10 h-[240svh] px-4 sm:px-6 lg:px-[5vw]"
+      className="relative z-10 min-h-0 px-4 pb-[calc(4rem+env(safe-area-inset-bottom))] pt-16 sm:px-6 sm:py-24 md:h-[240svh] md:py-0 lg:px-[5vw]"
     >
-      <div data-positioning-pin className="flex h-[100svh] items-center overflow-hidden py-24">
-        <div className="mx-auto grid w-full max-w-[1180px] gap-7 lg:grid-cols-[0.72fr_1fr] lg:items-center">
+      <div data-positioning-pin className="flex min-h-0 items-start overflow-visible py-0 md:h-[100svh] md:items-center md:py-24">
+        <div className="mx-auto grid w-full max-w-[1180px] gap-8 lg:grid-cols-[0.72fr_1fr] lg:items-center">
           <div data-first-copy>
             <p data-v2-blur className="font-mono-custom text-[0.66rem] uppercase text-[var(--v2-accent)]">
               Primeira scrollada
             </p>
             <h2
               data-v2-mask
-              className="mt-4 max-w-[760px] font-display text-[2.42rem] font-bold leading-[1] text-white min-[390px]:text-[2.72rem] sm:text-[4.3rem]"
+              className="mt-4 max-w-[720px] font-display text-[2.28rem] font-bold leading-[1.02] text-white min-[390px]:text-[2.55rem] sm:text-[4.3rem]"
             >
-              A interface muda de ambiente quando a história começa.
+              Da presença digital à operação real.
             </h2>
-            <p data-v2-blur className="mt-6 max-w-[560px] text-[1rem] leading-[1.76] text-white/58">
-              A primeira transição recolhe o hero, troca o clima visual e apresenta a tese:
-              engenharia, IA, segurança e produto funcionando como uma única camada de valor.
+            <p data-v2-blur className="mt-5 max-w-[520px] text-[0.98rem] leading-[1.65] text-white/60">
+              Cada seção revela uma camada: produto, IA, automação e conversão trabalhando juntas.
             </p>
           </div>
 
-          <div className="relative h-[390px] sm:h-[500px]">
+          <div className="relative grid gap-3 md:block md:h-[500px]">
             {frames.map((frame, index) => {
               const Icon = frame.icon;
               return (
                 <article
                   key={frame.title}
                   data-story-card
-                  className="absolute inset-0 flex flex-col justify-between border border-white/[0.08] bg-black/38 p-5 backdrop-blur-2xl sm:p-8"
+                  className="relative flex min-h-[268px] flex-col justify-between border border-white/[0.08] bg-black/38 p-5 backdrop-blur-2xl md:absolute md:inset-0 md:min-h-0 sm:p-8"
                   style={{ zIndex: frames.length - index }}
                 >
                   <div>
-                    <div className="mb-10 flex items-center justify-between">
+                    <div className="mb-7 flex items-center justify-between sm:mb-10">
                       <span className="font-mono-custom text-[0.62rem] uppercase text-white/42">
                         {frame.label}
                       </span>
@@ -557,10 +556,10 @@ function PositioningSection() {
                         <Icon size={18} />
                       </span>
                     </div>
-                    <h3 className="max-w-[620px] font-display text-[2.05rem] font-bold leading-[1.02] text-white sm:text-[3.2rem]">
+                    <h3 className="max-w-[620px] font-display text-[1.82rem] font-bold leading-[1.03] text-white min-[390px]:text-[2.05rem] sm:text-[3.2rem]">
                       {frame.title}
                     </h3>
-                    <p className="mt-5 max-w-[520px] text-[0.98rem] leading-[1.7] text-white/58">
+                    <p className="mt-4 max-w-[520px] text-[0.94rem] leading-[1.62] text-white/60 sm:mt-5 sm:text-[0.98rem] sm:leading-[1.7]">
                       {frame.body}
                     </p>
                   </div>
@@ -610,7 +609,7 @@ function CaseArtwork({ project }: { project: V2Case }) {
       aria-label={`Visual do case ${project.name}`}
     >
       <div
-        className="absolute inset-0 opacity-95"
+        className="pointer-events-none absolute inset-0 opacity-95"
         style={{
           background: `linear-gradient(140deg, ${project.dark} 0%, transparent 46%, rgba(255,255,255,0.045) 70%, ${project.soft} 100%)`,
         }}
@@ -647,8 +646,8 @@ function CaseArtwork({ project }: { project: V2Case }) {
                   sizes="(max-width: 768px) 88vw, 460px"
                   className="object-cover object-top transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.72),transparent_54%,rgba(0,0,0,0.14))]" />
-                <div data-image-mask className="absolute inset-0 bg-[var(--case-accent)]" />
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.48),transparent_58%,rgba(0,0,0,0.08))]" />
+                <div data-image-mask className="pointer-events-none absolute inset-0 bg-[var(--case-accent)]" />
                 <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-4">
                   <div>
                     <span className="font-mono-custom text-[0.52rem] uppercase text-white/50">
@@ -735,14 +734,14 @@ function CasePanel({ project }: { project: V2Case }) {
       style={style}
     >
       <div
-        className="absolute inset-0 opacity-88"
+        className="pointer-events-none absolute inset-0 opacity-88"
         style={{
           background: `linear-gradient(135deg, ${project.dark} 0%, rgba(0,0,0,0.5) 48%, ${project.soft} 100%)`,
         }}
       />
-      <div className="v2-hover-morph absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="v2-hover-morph pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-      <div className="relative grid gap-6 lg:grid-cols-[0.86fr_1fr] lg:items-stretch">
+      <div className="relative z-10 grid gap-6 lg:grid-cols-[0.86fr_1fr] lg:items-stretch">
         <div className="flex flex-col justify-between">
           <div>
             <div className="mb-8 flex items-center justify-between">
@@ -786,7 +785,7 @@ function CasePanel({ project }: { project: V2Case }) {
             <MagneticAnchor
               href={project.href}
               external={!project.href.startsWith("#")}
-              className="inline-flex h-12 items-center justify-center gap-2 border border-white/[0.1] bg-white/[0.04] px-4 text-sm font-semibold text-white transition-colors hover:border-[var(--case-accent)] hover:bg-white/[0.07]"
+              className="relative z-20 inline-flex h-12 items-center justify-center gap-2 border border-white/[0.1] bg-white/[0.04] px-4 text-sm font-semibold text-white transition-colors hover:border-[var(--case-accent)] hover:bg-white/[0.07]"
             >
               {project.buttonLabel}
               <ArrowUpRight size={16} />
@@ -928,14 +927,14 @@ function ContactSection() {
               <MagneticAnchor
                 href="https://wa.me/5541999360874"
                 external
-                className="group flex h-14 items-center justify-between border border-[var(--v2-accent)] bg-[var(--v2-accent)] px-4 text-sm font-semibold text-black"
+                className="group relative z-20 flex h-14 items-center justify-between border border-[var(--v2-accent)] bg-[var(--v2-accent)] px-4 text-sm font-semibold text-black"
               >
                 Chamar no WhatsApp
                 <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </MagneticAnchor>
               <MagneticAnchor
                 href="mailto:consultoria@davidbudeli.com"
-                className="group flex h-14 items-center justify-between border border-white/[0.1] bg-black/22 px-4 text-sm font-medium text-white transition-colors hover:border-white/[0.22]"
+                className="group relative z-20 flex h-14 items-center justify-between border border-white/[0.1] bg-black/22 px-4 text-sm font-medium text-white transition-colors hover:border-white/[0.22]"
               >
                 consultoria@davidbudeli.com
                 <ArrowUpRight size={18} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -1039,8 +1038,130 @@ export function V2Experience() {
     const caseVisuals = Array.from(root.querySelectorAll<HTMLElement>("[data-case-visual]"));
     const cardReveals = Array.from(root.querySelectorAll<HTMLElement>("[data-card-reveal]"));
     const footerReveal = root.querySelector<HTMLElement>("[data-footer-reveal]");
+    const backdropShell = root.querySelector<HTMLElement>("[data-responsive-backdrop]");
+    const backdropLight = root.querySelector<HTMLElement>("[data-backdrop-light]");
+    const backdropField = root.querySelector<HTMLElement>("[data-backdrop-field]");
+    const backdropBand = root.querySelector<HTMLElement>("[data-backdrop-band]");
+    const backdropVeil = root.querySelector<HTMLElement>("[data-backdrop-veil]");
+    const backdropDepth = root.querySelector<HTMLElement>("[data-backdrop-depth]");
+    const backdropTexture = root.querySelector<HTMLElement>("[data-backdrop-texture]");
+
+    const animateBackdropTheme = (slug: string) => {
+      const project = v2Cases.find((item) => item.slug === slug);
+      if (!project) return;
+
+      setActiveCaseSlug(slug);
+
+      if (backdropShell) {
+        gsap.to(backdropShell, {
+          "--v2-backdrop-dark": project.dark,
+          "--v2-backdrop-soft": project.soft,
+          "--v2-backdrop-accent": project.accent,
+          "--v2-backdrop-accent-two": project.accent2,
+          duration: 1.05,
+          ease: "power2.out",
+        });
+      }
+
+      if (backdropVeil) {
+        gsap
+          .timeline()
+          .to(backdropVeil, { opacity: 0.32, yPercent: -4, duration: 0.22, ease: "power2.out" })
+          .to(backdropVeil, { opacity: 0, yPercent: -10, duration: 0.82, ease: "power2.out" });
+      }
+    };
 
     const ctx = gsap.context(() => {
+      const sectionEnvironments: Record<
+        SectionId,
+        { light: number; field: number; band: number; texture: number; depth: number; scale: number }
+      > = {
+        hero: { light: 0.34, field: 0.22, band: 0.24, texture: 0.12, depth: 0.92, scale: 0.98 },
+        positioning: { light: 0.42, field: 0.28, band: 0.34, texture: 0.15, depth: 0.86, scale: 1.02 },
+        cases: { light: 0.48, field: 0.36, band: 0.38, texture: 0.17, depth: 0.82, scale: 1.06 },
+        system: { light: 0.38, field: 0.32, band: 0.28, texture: 0.13, depth: 0.9, scale: 1.02 },
+        contact: { light: 0.24, field: 0.18, band: 0.16, texture: 0.09, depth: 0.96, scale: 0.96 },
+      };
+
+      const applyBackdropEnvironment = (id: SectionId) => {
+        const env = sectionEnvironments[id];
+
+        if (backdropLight) {
+          gsap.to(backdropLight, {
+            opacity: env.light,
+            scale: env.scale,
+            duration: 1.05,
+            ease: "power2.out",
+          });
+        }
+        if (backdropField) {
+          gsap.to(backdropField, {
+            opacity: env.field,
+            scale: 1 + (env.scale - 1) * 0.72,
+            duration: 1.05,
+            ease: "power2.out",
+          });
+        }
+        if (backdropBand) {
+          gsap.to(backdropBand, {
+            opacity: env.band,
+            duration: 1.05,
+            ease: "power2.out",
+          });
+        }
+        if (backdropTexture) {
+          gsap.to(backdropTexture, {
+            opacity: env.texture,
+            duration: 1.05,
+            ease: "power2.out",
+          });
+        }
+        if (backdropDepth) {
+          gsap.to(backdropDepth, {
+            opacity: env.depth,
+            duration: 1.05,
+            ease: "power2.out",
+          });
+        }
+      };
+
+      animateBackdropTheme(v2Cases[0].slug);
+      applyBackdropEnvironment("hero");
+
+      if (backdropLight) {
+        gsap.to(backdropLight, {
+          xPercent: 12,
+          yPercent: 18,
+          rotate: -5,
+          ease: "none",
+          scrollTrigger: { start: 0, end: "max", scrub: 1.25 },
+        });
+      }
+      if (backdropField) {
+        gsap.to(backdropField, {
+          xPercent: -10,
+          yPercent: -16,
+          rotate: 4,
+          ease: "none",
+          scrollTrigger: { start: 0, end: "max", scrub: 1.45 },
+        });
+      }
+      if (backdropBand) {
+        gsap.to(backdropBand, {
+          yPercent: -42,
+          rotate: 1.5,
+          ease: "none",
+          scrollTrigger: { start: 0, end: "max", scrub: 1.05 },
+        });
+      }
+      if (backdropDepth) {
+        gsap.to(backdropDepth, {
+          yPercent: 8,
+          ease: "none",
+          scrollTrigger: { start: 0, end: "max", scrub: 1.7 },
+        });
+      }
+
       const hero = root.querySelector<HTMLElement>("#hero");
       const heroWords = Array.from(hero?.querySelectorAll<HTMLElement>("[data-v2-word]") ?? []);
       const heroEntrants = [
@@ -1057,8 +1178,8 @@ export function V2Experience() {
       gsap.set(heroEntrants, { y: 28, opacity: 0, filter: "blur(12px)" });
       gsap.set(blurItems, { y: 26, opacity: 0, filter: "blur(12px)" });
       gsap.set(maskItems, { clipPath: "inset(0 100% 0 0)", filter: "blur(10px)" });
-      gsap.set(casePanels, { y: 90, opacity: 0, scale: 0.965, filter: "blur(18px)" });
-      gsap.set(caseVisuals, { clipPath: "inset(0 0 16% 0)", y: 34, filter: "blur(10px)" });
+      gsap.set(casePanels, { y: 72, opacity: 0, scale: 0.975, filter: "blur(8px)" });
+      gsap.set(caseVisuals, { clipPath: "inset(0 0 12% 0)", y: 28 });
       gsap.set(cardReveals, { y: 64, opacity: 0, rotateX: 5, transformPerspective: 900 });
       if (footerReveal) {
         gsap.set(footerReveal, { y: 70, opacity: 0, filter: "blur(14px)" });
@@ -1094,11 +1215,11 @@ export function V2Experience() {
         },
       });
       heroScroll
-        .to("[data-hero-title]", { yPercent: -24, scale: 0.82, transformOrigin: "left top", filter: "blur(1.6px)" }, 0)
-        .to("[data-hero-copy], [data-hero-note]", { y: -64, opacity: 0, filter: "blur(8px)" }, 0)
-        .to("[data-hero-domains], [data-hero-actions]", { y: -44, opacity: 0, filter: "blur(7px)" }, 0.04)
-        .to("[data-hero-profile]", { y: -52, opacity: 0.16, scale: 0.96, filter: "blur(8px)" }, 0)
-        .to("[data-hero-panel]", { y: -90, opacity: 0.14, scale: 0.94, filter: "blur(8px)" }, 0)
+        .to("[data-hero-title]", { yPercent: -22, scale: 0.86, transformOrigin: "left top" }, 0)
+        .to("[data-hero-copy], [data-hero-note]", { y: -54, opacity: 0, filter: "blur(3px)" }, 0)
+        .to("[data-hero-domains], [data-hero-actions]", { y: -38, opacity: 0, filter: "blur(3px)" }, 0.04)
+        .to("[data-hero-profile]", { y: -42, opacity: 0.22, scale: 0.97 }, 0)
+        .to("[data-hero-panel]", { y: -76, opacity: 0.18, scale: 0.96 }, 0)
         .to("[data-hero-band]", { yPercent: -110, rotate: 1.5, opacity: 0.2 }, 0);
 
       Array.from(root.querySelectorAll<HTMLElement>("[data-v2-split]")).forEach((split) => {
@@ -1153,32 +1274,6 @@ export function V2Experience() {
         });
       });
 
-      const storyCards = Array.from(root.querySelectorAll<HTMLElement>("[data-story-card]"));
-      const positioningPin = root.querySelector<HTMLElement>("[data-positioning-pin]");
-      if (storyCards.length) {
-        gsap.set(storyCards, { yPercent: 112, opacity: 0, scale: 0.95, filter: "blur(18px)" });
-        gsap.set(storyCards[0], { yPercent: 0, opacity: 1, scale: 1, filter: "blur(0px)" });
-
-        const storyTimeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: "#positioning",
-            start: "top top",
-            end: "bottom bottom",
-            pin: positioningPin ?? true,
-            pinSpacing: false,
-            anticipatePin: 1,
-            scrub: 0.85,
-          },
-        });
-
-        storyTimeline
-          .to("[data-first-copy]", { y: -48, scale: 0.94, opacity: 0.62, transformOrigin: "left top" }, 0)
-          .to(storyCards[0], { yPercent: -34, opacity: 0, scale: 0.94, filter: "blur(12px)" }, 0.18)
-          .to(storyCards[1], { yPercent: 0, opacity: 1, scale: 1, filter: "blur(0px)" }, 0.28)
-          .to(storyCards[1], { yPercent: -34, opacity: 0, scale: 0.94, filter: "blur(12px)" }, 0.58)
-          .to(storyCards[2], { yPercent: 0, opacity: 1, scale: 1, filter: "blur(0px)" }, 0.66);
-      }
-
       casePanels.forEach((panel) => {
         gsap.to(panel, {
           y: 0,
@@ -1187,6 +1282,7 @@ export function V2Experience() {
           filter: "blur(0px)",
           duration: 1.05,
           ease: "power4.out",
+          onComplete: () => gsap.set(panel, { clearProps: "filter" }),
           scrollTrigger: {
             trigger: panel,
             start: "top 82%",
@@ -1197,9 +1293,8 @@ export function V2Experience() {
 
       caseVisuals.forEach((visual) => {
         gsap.to(visual, {
-          y: -26,
+          y: -18,
           clipPath: "inset(0 0 0% 0)",
-          filter: "blur(0px)",
           ease: "none",
           scrollTrigger: {
             trigger: visual,
@@ -1217,15 +1312,16 @@ export function V2Experience() {
         if (image) {
           gsap.fromTo(
             image,
-            { scale: 1.18, filter: "blur(14px)" },
+            { scale: 1.08 },
             {
               scale: 1,
-              filter: "blur(0px)",
-              duration: 1.25,
+              duration: 0.72,
               ease: "power3.out",
+              onStart: () => gsap.set(image, { filter: "blur(0px)", opacity: 1 }),
+              onComplete: () => gsap.set(image, { clearProps: "filter" }),
               scrollTrigger: {
                 trigger: imageShell,
-                start: "top 84%",
+                start: "top 92%",
                 once: true,
               },
             }
@@ -1285,21 +1381,34 @@ export function V2Experience() {
           trigger: section,
           start: "top 55%",
           end: "bottom 45%",
-          onEnter: () => setActiveSection(id),
-          onEnterBack: () => setActiveSection(id),
+          onEnter: () => {
+            setActiveSection(id);
+            applyBackdropEnvironment(id);
+          },
+          onEnterBack: () => {
+            setActiveSection(id);
+            applyBackdropEnvironment(id);
+          },
         });
       });
 
       Array.from(root.querySelectorAll<HTMLElement>("[data-v2-theme]")).forEach((section) => {
         const slug = section.dataset.v2Theme;
         if (!slug) return;
+        const isHorizontalCase = section.hasAttribute("data-case-panel");
 
         ScrollTrigger.create({
           trigger: section,
           start: "top 58%",
           end: "bottom 42%",
-          onEnter: () => setActiveCaseSlug(slug),
-          onEnterBack: () => setActiveCaseSlug(slug),
+          onEnter: () => {
+            if (isHorizontalCase && window.innerWidth >= 1024) return;
+            animateBackdropTheme(slug);
+          },
+          onEnterBack: () => {
+            if (isHorizontalCase && window.innerWidth >= 1024) return;
+            animateBackdropTheme(slug);
+          },
         });
       });
 
@@ -1313,6 +1422,69 @@ export function V2Experience() {
     }, root);
 
     const mm = gsap.matchMedia();
+    const storyCards = Array.from(root.querySelectorAll<HTMLElement>("[data-story-card]"));
+    const positioningPin = root.querySelector<HTMLElement>("[data-positioning-pin]");
+
+    if (storyCards.length) {
+      mm.add("(max-width: 767px)", () => {
+        const tweens = storyCards.map((card, index) => {
+          gsap.set(card, { y: 34, opacity: 0, scale: 0.985, filter: "blur(8px)" });
+
+          return gsap.to(card, {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 0.72,
+            delay: index * 0.04,
+            ease: "power3.out",
+            onComplete: () => gsap.set(card, { clearProps: "filter" }),
+            scrollTrigger: {
+              trigger: card,
+              start: "top 86%",
+              once: true,
+            },
+          });
+        });
+
+        return () => {
+          tweens.forEach((tween) => {
+            tween.scrollTrigger?.kill();
+            tween.kill();
+          });
+        };
+      });
+
+      mm.add("(min-width: 768px)", () => {
+        gsap.set(storyCards, { yPercent: 105, opacity: 0, scale: 0.96, filter: "blur(8px)" });
+        gsap.set(storyCards[0], { yPercent: 0, opacity: 1, scale: 1, filter: "blur(0px)" });
+
+        const storyTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#positioning",
+            start: "top top",
+            end: "bottom bottom",
+            pin: positioningPin ?? true,
+            pinSpacing: true,
+            anticipatePin: 1,
+            scrub: 0.85,
+          },
+        });
+
+        storyTimeline
+          .to("[data-first-copy]", { y: -28, scale: 0.96, opacity: 0.72, transformOrigin: "left top" }, 0)
+          .to(storyCards[0], { yPercent: -30, opacity: 0, scale: 0.96, filter: "blur(6px)" }, 0.18)
+          .to(storyCards[1], { yPercent: 0, opacity: 1, scale: 1, filter: "blur(0px)" }, 0.28)
+          .to(storyCards[1], { yPercent: -30, opacity: 0, scale: 0.96, filter: "blur(6px)" }, 0.58)
+          .to(storyCards[2], { yPercent: 0, opacity: 1, scale: 1, filter: "blur(0px)" }, 0.66);
+
+        return () => {
+          storyTimeline.scrollTrigger?.kill();
+          storyTimeline.kill();
+        };
+      });
+    }
+
     mm.add("(min-width: 1024px)", () => {
       const gallery = root.querySelector<HTMLElement>("[data-case-gallery]");
       const track = root.querySelector<HTMLElement>("[data-case-track]");
@@ -1335,7 +1507,28 @@ export function V2Experience() {
         },
       });
 
+      const themeTriggers = v2Cases
+        .map((project) => {
+          const panel = root.querySelector<HTMLElement>(
+            `[data-case-panel][data-v2-theme="${project.slug}"]`
+          );
+          if (!panel) return null;
+
+          return ScrollTrigger.create({
+            trigger: panel,
+            containerAnimation: tween,
+            start: "left center",
+            end: "right center",
+            onEnter: () => animateBackdropTheme(project.slug),
+            onEnterBack: () => animateBackdropTheme(project.slug),
+          });
+        })
+        .filter(
+          (trigger): trigger is ReturnType<typeof ScrollTrigger.create> => trigger !== null
+        );
+
       return () => {
+        themeTriggers.forEach((trigger) => trigger.kill());
         tween.scrollTrigger?.kill();
         tween.kill();
       };
@@ -1384,7 +1577,7 @@ export function V2Experience() {
   return (
     <div ref={rootRef} className="v2-page relative min-h-screen bg-[#030303] text-white" style={themeStyle}>
       <V2LoadingScreen done={loadingDone} />
-      <ResponsiveBackdrop activeCase={activeCase} />
+      <ResponsiveBackdrop />
       <V2Navigation activeSection={activeSection} onNavigate={setActiveSection} />
       <main className="relative z-10">
         <HeroSection />

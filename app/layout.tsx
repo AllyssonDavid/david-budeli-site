@@ -28,9 +28,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://davidbudeli.com"),
-  title: "David Budeli | Software Engineer",
+  title: "David Budeli | Produtos Digitais, IA e Automação",
   description:
-    "David Budeli constrói produtos digitais, infraestrutura de IA, automações e sistemas de alta performance para marcas e operações premium.",
+    "David Budeli cria sites, sistemas, automações e experiências digitais com foco em performance, IA e conversão.",
   keywords: [
     "David Budeli",
     "Software Engineer",
@@ -60,24 +60,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     url: "https://davidbudeli.com",
-    title: "David Budeli | Software Engineer",
+    title: "David Budeli | Produtos Digitais, IA e Automação",
     description:
-      "Produtos digitais, infraestrutura de IA, automações e sistemas de alta performance.",
+      "Sites, sistemas, IA aplicada e automações para marcas que precisam vender, operar e crescer.",
     siteName: "David Budeli",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "David Budeli - Software Engineer",
+        alt: "David Budeli - Produtos digitais, IA e automação",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "David Budeli | Software Engineer",
+    title: "David Budeli | Produtos Digitais, IA e Automação",
     description:
-      "Produtos digitais, infraestrutura de IA, automações e sistemas de alta performance.",
+      "Sites, sistemas, IA aplicada e automações para marcas que precisam vender, operar e crescer.",
     images: ["/twitter-image"],
   },
   robots: {
