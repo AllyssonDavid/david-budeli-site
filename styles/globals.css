@@ -129,21 +129,11 @@ body::after {
   }
 
   .grid-bg {
-    background-image: linear-gradient(
-        rgba(59, 130, 246, 0.025) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, rgba(34, 197, 94, 0.018) 1px, transparent 1px);
-    background-size: 44px 44px;
+    background-image: linear-gradient(125deg, rgba(255, 255, 255, 0.025), transparent 38%, rgba(255, 255, 255, 0.018));
   }
 
   .grid-bg-sm {
-    background-image: linear-gradient(
-        rgba(59, 130, 246, 0.04) 1px,
-        transparent 1px
-      ),
-      linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
+    background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.026), transparent 54%);
   }
 
   .clip-hex {
@@ -307,9 +297,6 @@ html.lenis body {
     padding: 7rem 5vw;
   }
 
-  .grid-bg {
-    background-size: 80px 80px;
-  }
 }
 
 @media (min-width: 1200px) {
@@ -395,4 +382,70 @@ html.lenis body {
   100% {
     top: 100%;
   }
+}
+
+/* V2 EXPERIENCE */
+.v2-page {
+  --v2-accent: #7dd3fc;
+  --v2-accent-two: #a78bfa;
+  --v2-dark: #07121d;
+  --v2-soft: rgba(125, 211, 252, 0.14);
+  --v2-page-progress: 0;
+  isolation: isolate;
+}
+
+.v2-page,
+.v2-page * {
+  letter-spacing: 0 !important;
+}
+
+.v2-split {
+  display: inline;
+}
+
+.v2-word-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.v2-word {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+.v2-ambient-surface {
+  background:
+    linear-gradient(122deg, transparent 0%, rgba(255, 255, 255, 0.034) 28%, transparent 58%),
+    linear-gradient(18deg, transparent 12%, rgba(255, 255, 255, 0.026) 46%, transparent 82%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.026), transparent 34%, rgba(255, 255, 255, 0.014) 72%, transparent);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%);
+}
+
+.v2-case-panel {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.v2-hover-morph {
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.055) 34%, transparent 68%),
+    linear-gradient(96deg, transparent 0%, var(--case-soft) 44%, transparent 76%);
+  background-size: 180% 100%, 100% 100%;
+  background-position: var(--hover-x, 50%) var(--hover-y, 50%), center;
+}
+
+[data-case-visual] {
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+}
+
+[data-v2-loader] {
+  will-change: opacity, visibility;
+}
+
+[data-loader-line],
+[data-loader-mark] {
+  will-change: transform, opacity, filter;
 }

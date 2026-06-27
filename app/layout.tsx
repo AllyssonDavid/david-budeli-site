@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Syne, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import "@/styles/globals.css";
 import { SmoothScrollProvider } from "@/components/animations/SmoothScrollProvider";
 import { CustomCursor } from "@/components/ui/CustomCursor";
@@ -28,40 +28,57 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://davidbudeli.com"),
-  title: "David Budeli - Arquitetando o Infinito",
+  title: "David Budeli | Software Engineer",
   description:
-    "Engenheiro de software de elite, fundador de ecossistema tecnológico e estrategista digital. Desenvolvendo ecossistemas digitais ultra-premium.",
+    "David Budeli constrói produtos digitais, infraestrutura de IA, automações e sistemas de alta performance para marcas e operações premium.",
   keywords: [
     "David Budeli",
+    "Software Engineer",
     "engenheiro de software",
+    "produtos digitais",
+    "infraestrutura de IA",
+    "automações",
     "Next.js",
     "TypeScript",
     "Hyper Galaxy",
     "HyperAG",
     "HyperPag",
     "fintech",
-    "automação",
     "IA",
   ],
   authors: [{ name: "David Budeli" }],
   creator: "David Budeli",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     type: "website",
     locale: "pt_BR",
     url: "https://davidbudeli.com",
-    title: "David Budeli - Arquitetando o Infinito",
+    title: "David Budeli | Software Engineer",
     description:
-      "Engenheiro de software de elite e fundador de ecossistema tecnológico.",
+      "Produtos digitais, infraestrutura de IA, automações e sistemas de alta performance.",
     siteName: "David Budeli",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "David Budeli - Software Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "David Budeli - Arquitetando o Infinito",
+    title: "David Budeli | Software Engineer",
     description:
-      "Engenheiro de software de elite e fundador de ecossistema tecnológico.",
+      "Produtos digitais, infraestrutura de IA, automações e sistemas de alta performance.",
+    images: ["/twitter-image"],
   },
   robots: {
     index: true,
@@ -72,7 +89,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#050505",
+  themeColor: "#030303",
 };
 
 export default function RootLayout({
