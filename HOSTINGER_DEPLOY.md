@@ -23,8 +23,6 @@ Scripts esperados:
 }
 ```
 
-O projeto tambem mantem `npm run lint` para validacao local/CI.
-
 ## Variaveis de ambiente
 
 Nenhuma variavel de ambiente e obrigatoria para o deploy atual.
@@ -46,7 +44,6 @@ Execute localmente ou no ambiente de build:
 
 ```bash
 npm install
-npm run lint
 npm run build
 npm start
 ```
@@ -58,7 +55,7 @@ Depois de iniciar, valide:
 - Secao Sobre com retrato
 - Projetos clicaveis
 - Links oficiais
-- Formulario de contato via email
+- Botoes "Iniciar conversa" abrindo o WhatsApp com mensagem preenchida
 - Layout mobile sem overflow horizontal
 
 ## Dominio
