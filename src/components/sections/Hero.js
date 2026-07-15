@@ -1011,19 +1011,17 @@ export default function Hero() {
         scrollTrigger: {
           trigger: heroRef.current,
           start: 'top top',
-          end: isMobile ? '+=250%' : '+=400%', // Increased from 150% to 250% to make the mobile animation feel a little longer
+          end: isMobile ? '+=150%' : '+=400%',
           pin: true,
           pinSpacing: true,
           anticipatePin: 1, // Fixes mobile detachments at extreme scroll speeds
-          scrub: 0.5,
+          scrub: isMobile ? 0.2 : 0.5,
           refreshPriority: 1, // Recalculate FIRST so pin-spacer height is known before downstream triggers
           onUpdate: (self) => {
             const progress = self.progress; // 0 → 1
 
-            // Lazy-load action frames when the user is 70% through the hero scroll.
-            // This gives the browser ~28% of the scroll distance as a download window
-            // before action frames are actually needed at 98%.
-            if (progress >= 0.70) {
+            // Mobile reaches the end sooner, so start fetching its action loop earlier.
+            if (progress >= (isMobile ? 0.55 : 0.70)) {
               loadActionFrames();
             }
 
