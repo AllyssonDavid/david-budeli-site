@@ -1,21 +1,19 @@
-# David Budeli
+# David Budeli — Portfólio
 
-Experiencia digital premium para `davidbudeli.com`, construida com Next.js, TypeScript, Tailwind CSS, Framer Motion e motion system mobile-first.
+Portfólio bilíngue de David Budeli para `davidbudeli.com`, com identidade DB, apresentação profissional, competências, cases e contato direto pelo WhatsApp.
 
 ## Stack
 
 - Next.js App Router
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- GSAP ScrollTrigger carregado sob demanda no desktop
-- Lenis somente no desktop
+- React
+- Styled Components
+- GSAP e ScrollTrigger
+- React Three Fiber / Three.js
 
 ## Scripts
 
 ```bash
 npm run dev
-npm run lint
 npm run build
 npm start
 ```
@@ -43,7 +41,6 @@ Acesse `http://localhost:3000`.
 
 ```bash
 npm install
-npm run lint
 npm run build
 npm start
 ```
@@ -69,12 +66,17 @@ Nenhuma variavel de ambiente e obrigatoria para a versao atual.
 
 ## Conteudo
 
-Os dados principais de navegacao, ecossistema, projetos, stack e contatos ficam em `lib/constants.ts`.
+Os dados principais de perfil, projetos, competências e contatos ficam em `src/data`.
 
 Links oficiais configurados:
 
 - GitHub: `https://github.com/DavidBudeli`
 - Instagram: `https://www.instagram.com/davidbudeli/`
 - Website: `https://davidbudeli.com`
-- Email: `mailto:atendimento@davidbudeli.com`
-- WhatsApp: `https://wa.me/5541999360874`
+- Email: `mailto:consultoria@davidbudeli.com`
+- WhatsApp: `https://wa.me/5541999360874` com mensagem inicial preenchida nos botões de conversa
+
+## Idiomas e tema
+
+- Português e inglês
+- Tema escuro como experiência principal, com opção de tema claro
